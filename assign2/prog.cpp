@@ -1,7 +1,6 @@
-
 /**
  * Assignment 2: Simple UNIX Shell
- * @file pcbtable.h
+ * @file prog.cpp
  * @author Caden Jamason, Adrian Reyes
  * @brief This is the main function of a simple UNIX Shell. You may add
  * additional functions in this file for your implementation
@@ -33,12 +32,12 @@ using namespace std;
 int parse_command(char command[], char *args[]) {
   // TODO: implement this function
   char *token = strtok(command, " \n"); // Scans command for first space
-  int i = 0;                          // Counter for the number of arguments
+  int i = 0;                            // Counter for the number of arguments
 
-  while (token != NULL) {      // While the token isn't NULL...
-    args[i] = token;           // Add the token to the args array
+  while (token != NULL) {        // While the token isn't NULL...
+    args[i] = token;             // Add the token to the args array
     token = strtok(NULL, " \n"); // Scan for the next space
-    i++;                       // Increment the counter
+    i++;                         // Increment the counter
   }
 
   args[i] = NULL; // Set the last argument to NULL to mark end of array
@@ -63,7 +62,7 @@ int main(int argc, char *argv[]) {
   pid_t pid; // Process ID
 
   while (should_run) {
-    printf("osh>");
+    printf("osh> ");
     fflush(stdout);
     // Read the input command
     fgets(command, MAX_LINE, stdin);
@@ -91,16 +90,28 @@ int main(int argc, char *argv[]) {
      */
 
     pid = fork();
-    if (pid < 0) { // If fork fails
-      fprintf(stderr, "Fork failed\n");
-      return 1;
-    } else if (pid == 0) { // If child process
-      if (execvp(args[0], args) < 0) { // Execute the command
-        fprintf(stderr, "Execution failed\n");
+    if (pid < 0) {
+      // Fork failed
+      cerr << "Fork failed" << endl;
+      exit(EXIT_FAILURE);
+    } else if (pid == 0) { // Child process
+      // If the last argument is "&"...
+      if (num_args > 0 && strcmp(args[num_args - 1], "&") == EXIT_SUCCESS) {
+        // Remove the "&" from the arguments
+        args[num_args - 1] = NULL;
+      }
+
+      // Execute the command
+      if (args[0] != nullptr && execvp(args[0], args) == EXIT_SUCCESS) {
+        cerr << "Execution failed" << endl;
         return 1;
       }
-    } else { // If parent process
-      wait(NULL); // Wait for child process to finish
+    } else { // Parent process
+      // If the last argument is not "&"...
+      if (strcmp(args[num_args - 1], "&") != EXIT_SUCCESS) {
+        // Wait for the child process to finish
+        wait(NULL);
+      }
     }
   }
   return 0;
