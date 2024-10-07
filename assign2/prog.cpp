@@ -60,6 +60,7 @@ int main(int argc, char *argv[]) {
 
   // TODO: Add additional variables for the implementation.
   pid_t pid; // Process ID
+  char last_command[MAX_LINE]; // Store the last command entered by the user
 
   while (should_run) {
     printf("osh> ");
@@ -82,6 +83,21 @@ int main(int argc, char *argv[]) {
       continue;
     }
 
+    // Compare first argument to "!!" to execute the last command
+    if (strcmp(args[0], "!!") == 0) {
+      if (strlen(last_command) > 0) {
+        // Execute the last command
+        printf("Executing last command: %s\n", last_command);
+        parse_command(last_command, args);
+      } else {
+        printf("No prior history.\n");
+      }
+      continue;
+    }
+
+    // Store the current command as the last command
+    strcpy(last_command, command);
+
     /**
      * After reading user input, the steps are:
      * (1) fork a child process using fork()
@@ -91,18 +107,17 @@ int main(int argc, char *argv[]) {
 
     pid = fork();
     if (pid < 0) {
-      // Fork failed
-      cerr << "Fork failed" << endl;
-      exit(EXIT_FAILURE);
-    } else if (pid == 0) { // Child process
+      cerr << "Fork failed" << endl; // Print an error message
+      exit(EXIT_FAILURE);            // Exit the program
+    } else if (pid == 0) {           // Child process
       // If the last argument is "&"...
       if (num_args > 0 && strcmp(args[num_args - 1], "&") == EXIT_SUCCESS) {
-        // Remove the "&" from the arguments
+        // Remove the "&" from the arguments so it doesn't get passed to execvp
         args[num_args - 1] = NULL;
       }
-
       // Execute the command
       if (args[0] != nullptr && execvp(args[0], args) == EXIT_SUCCESS) {
+        // If the command fails to execute, print an error message
         cerr << "Execution failed" << endl;
         return 1;
       }
@@ -114,5 +129,6 @@ int main(int argc, char *argv[]) {
       }
     }
   }
+
   return 0;
 }
