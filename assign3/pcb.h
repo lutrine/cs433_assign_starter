@@ -39,6 +39,12 @@ public:
   unsigned int burst_time;
   // The arrival time of the process
   unsigned int arrival_time;
+  // The completion time of the process
+  unsigned int completion_time;
+  // The turnaround time of the process
+  unsigned int turnaround_time;
+  // The waiting time of the process
+  unsigned int waiting_time;
 
   /**
    * @brief Construct a new PCB object
