@@ -15,8 +15,8 @@ using namespace std;
 
 int main(int argc, char *argv[]) {
   std::cout << "CS 433 Programming assignment 3" << std::endl;
-  std::cout << "Author: xxxxxx and xxxxxxx" << std::endl; // TODO: add your name
-  std::cout << "Date: xx/xx/20xx" << std::endl;           // TODO: add date
+  std::cout << "Author: Caden Jamason and Adrian Reyes" << std::endl;
+  std::cout << "Date: 10/25/2024" << std::endl;
   std::cout << "Course: CS433 (Operating Systems)" << std::endl;
   std::cout << "Description : test FCFS scheduling algorithm " << std::endl;
   std::cout << "=================================" << std::endl;
@@ -41,13 +41,13 @@ int main(int argc, char *argv[]) {
     // Split the line into tokens
     istringstream ss(line);
     string name;
-    // parse out the name
+    // Parse out the name
     getline(ss, name, ',');
-    // parse out the priority
+    // Parse out the priority
     string token;
     getline(ss, token, ',');
     unsigned int priority = stoi(token);
-    // parse out the burst time
+    // Parse out the burst time
     getline(ss, token, ',');
     unsigned int burst_time = stoi(token);
 

@@ -2,7 +2,7 @@
  * Assignment 3: CPU Scheduler
  * @file scheduler_fcfs.h
  * @author Caden Jamason and Adrian Reyes
- * @brief This Scheduler class implements the FCSF scheduling algorithm.
+ * @brief This Scheduler class implements the FCFS scheduling algorithm.
  * @version 0.1
  */
 

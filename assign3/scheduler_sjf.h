@@ -1,6 +1,6 @@
 /**
  * Assignment 3: CPU Scheduler
- * @file scheduler_fcfs.h
+ * @file scheduler_sjf.h
  * @author Caden Jamason and Adrian Reyes
  * @brief This Scheduler class implements the SJF scheduling algorithm.
  * @version 0.1

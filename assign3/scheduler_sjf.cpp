@@ -8,5 +8,5 @@
 
 #include "scheduler_sjf.h"
 
-// TODO: add implementation of SchedulerSJF constructor, destrcutor and
+// TODO: add implementation of SchedulerSJF constructor, destructor, and
 // member functions init, print_results, and simulate here

@@ -8,5 +8,5 @@
 
 #include "scheduler_priority.h"
 
-// TODO: add implementation of SchedulerPriority constructor, destrcutor and
+// TODO: add implementation of SchedulerPriority constructor, destructor, and
 // member functions init, print_results, and simulate here
