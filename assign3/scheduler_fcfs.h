@@ -16,12 +16,12 @@
  */
 class SchedulerFCFS : public Scheduler {
 private:
-  std::vector<PCB> ready_queue; // Queue of processes
-  unsigned int current_time;             // Current time in the simulation
-  unsigned int total_waiting_time;       // Total waiting time of all processes
-  unsigned int total_turnaround_time;    // Total turnaround time of all processes
-  double avg_waiting_time;      // Average waiting time of all processes
-  double avg_turnaround_time;   // Average turnaround time of all processes
+  std::vector<PCB> ready_queue;
+  unsigned int current_time = 0;
+  unsigned int total_waiting_time = 0;
+  unsigned int total_turnaround_time = 0;
+  double avg_waiting_time = 0.0;
+  double avg_turnaround_time = 0.0;
 
 public:
   /**
