@@ -14,6 +14,12 @@
 class SchedulerSJF : public Scheduler {
 private:
   // TODO: add necessary member variables here for your implementation
+  std::vector<PCB> ready_queue;
+  unsigned int current_time = 0;
+  unsigned int total_waiting_time = 0;
+  unsigned int total_turnaround_time = 0;
+  double avg_waiting_time = 0.0;
+  double avg_turnaround_time = 0.0;
 
 public:
   /**
