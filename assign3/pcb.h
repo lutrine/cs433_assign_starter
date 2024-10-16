@@ -60,6 +60,9 @@ public:
     this->priority = priority;
     this->burst_time = burst_time;
     this->arrival_time = 0;
+    this->completion_time = 0;
+    this->turnaround_time = 0;
+    this->waiting_time = 0;
   }
 
   /**
