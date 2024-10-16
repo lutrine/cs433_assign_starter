@@ -31,7 +31,7 @@ void SchedulerFCFS::init(std::vector<PCB> &process_list) {
 // process and the average turn-around and waiting time
 void SchedulerFCFS::print_results() {
   for (PCB &process : ready_queue) {
-    std::cout << "T" << process.id << " ";
+    std::cout << "T" << process.id + 1 << " ";
     std::cout << "turn-around time = " << process.turnaround_time << ", ";
     std::cout << "waiting time = " << process.waiting_time << std::endl;
   }
@@ -49,8 +49,8 @@ void SchedulerFCFS::simulate() {
   while (i < num_of_processes) {
     // Get the front process from the queue and remove it from the queue
     PCB &process = ready_queue[i];
-    cout << "Running Process T" << process.id << " for " << process.burst_time
-         << " time units" << endl;
+    cout << "Running Process T" << process.id + 1 << " for "
+         << process.burst_time << " time units" << endl;
 
     // If the current time is less than the arrival time, wait for the process
     // to arrive
