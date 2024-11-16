@@ -9,8 +9,12 @@
 #ifndef ASSIGN4_BUFFER_H
 #define ASSIGN4_BUFFER_H
 
+#include <pthread.h>
+#include <semaphore.h>
+
 // Define the data type of the buffer items
 typedef int buffer_item;
+#define BUFFER_SIZE 5
 
 /**
  * @brief The bounded buffer class. The number of items in the buffer cannot
@@ -18,14 +22,16 @@ typedef int buffer_item;
  */
 class Buffer {
 private:
-  // TODO: Add your implementation of the buffer class here
+  int size, count;
+  int in, out; // Indices for circular buffer
+  buffer_item buffer[BUFFER_SIZE];
 
 public:
   /**
    * @brief Construct a new Buffer object
    * @param size the size of the buffer
    */
-  Buffer(int size = 5);
+  Buffer(int size = BUFFER_SIZE);
 
   /**
    * @brief Destroy the Buffer object
