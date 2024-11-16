@@ -27,8 +27,8 @@ void *producer(void *param) {
   while (true) {
     usleep(rand() % 1000000); // Sleep for a random period of time
 
-    sem_wait(&empty); // Wait for an empty slot
-    pthread_mutex_lock(&mutex);
+    sem_wait(&empty);           // Wait for an empty slot
+    pthread_mutex_lock(&mutex); // Lock the mutex
 
     if (buffer.insert_item(item)) {
       cout << "Producer " << item << ": Inserted item " << item << endl;
@@ -37,8 +37,8 @@ void *producer(void *param) {
       cout << "Producer error condition" << endl; // shouldn't come here
     }
 
-    pthread_mutex_unlock(&mutex);
-    sem_post(&full);
+    pthread_mutex_unlock(&mutex); // Unlock the mutex
+    sem_post(&full);              // Signal that the buffer is full
   }
 }
 
@@ -49,8 +49,8 @@ void *consumer(void *param) {
   while (true) {
     usleep(rand() % 1000000); // Sleep for a random period of time
 
-    sem_wait(&full);
-    pthread_mutex_lock(&mutex);
+    sem_wait(&full);            // Wait for a full slot
+    pthread_mutex_lock(&mutex); // Lock the mutex
 
     if (buffer.remove_item(&item)) {
       cout << "Consumer " << item << ": Removed item " << item << endl;
@@ -59,8 +59,8 @@ void *consumer(void *param) {
       cout << "Consumer error condition" << endl; // shouldn't come here
     }
 
-    pthread_mutex_unlock(&mutex);
-    sem_post(&empty);
+    pthread_mutex_unlock(&mutex); // Unlock the mutex
+    sem_post(&empty);             // Signal that the buffer is empty
   }
 }
 

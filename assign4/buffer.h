@@ -22,9 +22,11 @@ typedef int buffer_item;
  */
 class Buffer {
 private:
-  int size, count;
-  int in, out; // Indices for circular buffer
-  buffer_item buffer[BUFFER_SIZE];
+  buffer_item buffer[BUFFER_SIZE]; // The buffer
+  int size;                        // Size of the buffer
+  int count;                       // Number of items in the buffer
+  int in;                          // Index for inserting items
+  int out;                         // Index for removing items
 
 public:
   /**
@@ -41,16 +43,14 @@ public:
   /**
    * @brief Insert an item into the buffer
    * @param item the item to insert
-   * @return true if successful
-   * @return false if not successful
+   * @return `true` if successful, else `false`
    */
   bool insert_item(buffer_item item);
 
   /**
    * @brief Remove an item from the buffer
    * @param item the item to remove
-   * @return true if successful
-   * @return false if not successful
+   * @return `true` if successful, else `false`
    */
   bool remove_item(buffer_item *item);
 
@@ -68,12 +68,13 @@ public:
 
   /**
    * @brief Check if the buffer is empty
-   * @return true if the buffer is empty, else false
+   * @return `true` if the buffer is empty, else `false`
    */
   bool is_empty();
+
   /**
    * @brief Check if the buffer is full
-   * @return true if the buffer is full, else false
+   * @return `true` if the buffer is full, else `false`
    */
   bool is_full();
 
@@ -82,4 +83,5 @@ public:
    */
   void print_buffer();
 };
+
 #endif // ASSIGN4_BUFFER_H

@@ -10,30 +10,39 @@
 #include <iostream>
 
 Buffer::Buffer(int size) : size(BUFFER_SIZE), count(0), in(0), out(0) {
+  // Initialize all buffer elements to 0
   for (int i = 0; i < size; i++) {
     buffer[i] = 0;
   }
 }
 
-Buffer::~Buffer() {}
+Buffer::~Buffer() {} // Destructor
 
 bool Buffer::insert_item(buffer_item item) {
+  // Return false if buffer is full
   if (is_full()) {
     return false;
   }
-  buffer[in] = item;
-  in = (in + 1) % BUFFER_SIZE;
-  count++;
+
+  // Buffer is not full, so insert item
+  buffer[in] = item;    // Insert item into buffer
+  in = (in + 1) % size; // Increment in index and wrap if necessary
+  count++;              // Increment count
+
   return true;
 }
 
 bool Buffer::remove_item(buffer_item *item) {
+  // Return false if buffer is empty
   if (is_empty()) {
     return false;
   }
-  *item = buffer[out];
-  out = (out + 1) % size;
-  count--;
+
+  // Buffer is not empty, so remove item
+  *item = buffer[out];    // Get item from buffer
+  out = (out + 1) % size; // Increment out index and wrap if necessary
+  count--;                // Decrement count
+
   return true;
 }
 
@@ -47,13 +56,13 @@ bool Buffer::is_full() { return count == size; }
 
 void Buffer::print_buffer() {
   std::cout << "Buffer: [";
-  int index = out;
+  int index = out; // Start at out index
   for (int i = 0; i < count; i++) {
     std::cout << buffer[index];
-    if (i != count - 1) {
+    if (i != count - 1) { // Print comma and space if not last element
       std::cout << ", ";
     }
-    index = (index + 1) % size;
+    index = (index + 1) % size; // Increment index and wrap if necessary
   }
   std::cout << "]" << std::endl;
 }
